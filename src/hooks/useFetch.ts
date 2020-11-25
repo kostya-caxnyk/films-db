@@ -16,16 +16,16 @@ interface IError {
   };
 }
 
-interface IFetchData {
-  response: object | null;
+interface IFetchData<T> {
+  response: T | null;
   isLoading: boolean;
   error: IErrorData | null;
 }
 
-const useFetch = (
+const useFetch = <T>(
   requestUrl: string,
   params: string = '',
-): [IFetchData, (options?: AxiosRequestConfig) => void] => {
+): [IFetchData<T>, (options?: AxiosRequestConfig) => void] => {
   const [response, setResponse] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<IErrorData | null>(null);
