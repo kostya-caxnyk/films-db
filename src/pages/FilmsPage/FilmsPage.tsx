@@ -21,21 +21,19 @@ interface IPageInfo {
 }
 
 const FilmsPage: React.FC<RouteComponentProps<RouteParams>> = ({ match }) => {
-  console.log('rerendeer');
   let apiUrl: string = match.url.replaceAll('-', '_');
 
   if (match.params.slug === undefined) {
     apiUrl += '/popular';
   }
 
-  const [pageNumber, setPageNumber] = useState(1);
-  const [allPages, setAllPages] = useState<IPageInfo[]>([]);
-  const [{ response, error }, doFetch] = useFetch<IResponse>(apiUrl, `&page=${pageNumber}`);
+  const [allPages, setAllPages] = useState<IPageInfo[]>([{ items: null }]);
+  const [{ response, error }, doFetch] = useFetch<IResponse>(apiUrl, `&page=${allPages.length}`);
 
   useEffect(() => {
-    setPageNumber(1);
-    setAllPages([{ items: null }]);
     doFetch();
+
+    return () => setAllPages([{ items: null }]);
   }, [apiUrl, doFetch]);
 
   useEffect(() => {
@@ -48,24 +46,27 @@ const FilmsPage: React.FC<RouteComponentProps<RouteParams>> = ({ match }) => {
   }, [response]);
 
   useEffect(() => {
-    if (pageNumber > 1) {
+    if (allPages.length > 1) {
       doFetch();
-      setAllPages((allPages) => [...allPages, { items: null }]);
     }
-  }, [pageNumber, doFetch]);
+  }, [allPages.length, doFetch]);
+
+  const loadMoreFilms = (): void => {
+    setAllPages((allPages) => [...allPages, { items: null }]);
+  };
 
   return (
     <div className="container">
-      <h1 className={s.title}>films</h1>
+      <h1 className={s.title}>{changeUrlToTitle(apiUrl)}</h1>
       <div className={s.content}>
         <div className={s.sideBar}>side bar</div>
         <div className={s.pages}>
           {error && <ErrorMessage />}
-
-          {allPages.length &&
-            allPages.map((page, idx) => <FilmsFeed items={page.items} key={idx} />)}
-          {response && pageNumber < response.total_pages && (
-            <button className={s.btnMore} onClick={() => setPageNumber((n) => n + 1)}>
+          {allPages.map((page, idx) => (
+            <FilmsFeed items={page.items} key={idx} />
+          ))}
+          {response && allPages.length < response.total_pages && (
+            <button className={s.btnMore} onClick={loadMoreFilms}>
               Load More
             </button>
           )}
@@ -74,5 +75,29 @@ const FilmsPage: React.FC<RouteComponentProps<RouteParams>> = ({ match }) => {
     </div>
   );
 };
+
+function changeUrlToTitle(url: string): string {
+  //we getting url like '/movie/popular'
+  let arr = url.split('/');
+  //here we need to delete first array element which is ''
+  arr.shift();
+  arr = arr.map((word) =>
+    word
+      .split('_')
+      .map((e) => e[0].toUpperCase() + e.slice(1))
+      .join(' '),
+  );
+
+  if (arr[0] === 'Movie') {
+    return arr.reverse().join(' ') + 's';
+  }
+
+  if (arr[0] === 'Tv') {
+    arr.shift();
+    return arr.join(' ') + ' TV Shows';
+  }
+
+  return 'Films Page';
+}
 
 export default FilmsPage;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
 
 import s from './FilmCard.module.scss';
@@ -14,6 +14,11 @@ const formatDate = (date: string): string => {
   return format(new Date(+year, +month - 1, +day), 'PP');
 };
 
+const findLinkToValue = (pathname: string, id: string | number): string => {
+  const index = pathname.lastIndexOf('/');
+  return pathname.slice(0, index + 1) + 'details/' + id;
+};
+
 const FilmCard: React.FC<ICardData> = ({
   poster_path,
   release_date,
@@ -23,16 +28,19 @@ const FilmCard: React.FC<ICardData> = ({
   first_air_date,
   name,
 }) => {
+  const history = useHistory();
+
   const rateNumber = Math.round(vote_average * 10);
   const rateBorderColor = rateNumber > 70 ? 'green' : rateNumber > 25 ? 'yellow' : 'red';
+  const linkToValue = findLinkToValue(history.location.pathname, id);
 
   return (
     <div className={s.card}>
-      <Link to={'/'} className={s.imgLink}>
+      <Link to={linkToValue} className={s.imgLink}>
         <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt="" className={s.image} />
       </Link>
       <div className={s.info}>
-        <Link to="/" className={s.title}>
+        <Link to={linkToValue} className={s.title}>
           {title || name}
         </Link>
         <span className={s.date}>{formatDate(release_date || first_air_date)}</span>

@@ -37,17 +37,29 @@ const useFetch = <T>(
   }, []);
 
   useEffect(() => {
+    let isCanceledFetch: boolean = false;
+
     if (isLoading) {
       axios(baseUrl + requestUrl + apiKey + params, options)
         .then((res) => {
+          if (isCanceledFetch) {
+            return;
+          }
           setResponse(res.data);
           setIsLoading(false);
         })
         .catch((err: IError) => {
+          if (isCanceledFetch) {
+            return;
+          }
           setError(err.response.data);
           setIsLoading(false);
         });
     }
+
+    return () => {
+      isCanceledFetch = true;
+    };
   }, [isLoading, requestUrl, params, options]);
 
   return [{ response, isLoading, error }, doFetch];
