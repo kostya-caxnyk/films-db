@@ -1,14 +1,10 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { useState, useCallback, useEffect } from 'react';
 
+import { IErrorData } from '../interfaces';
+
 const baseUrl: string = 'https://api.themoviedb.org/3';
 const apiKey: string = '?api_key=b79c674110200fabb617b62045c9c32b';
-
-type IErrorData = {
-  statuc_code: number;
-  success: boolean;
-  statuc_message: string;
-};
 
 interface IError {
   response: {

@@ -42,23 +42,9 @@
   font-size: 14px;
 }
 
-.rate {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  height: 38px;
-  width: 38px;
-  color: white;
-  font-weight: bold;
-  font-size: 13px;
-
+.rateCircle {
   position: absolute;
   top: 0;
   left: 10px;
   transform: translateY(-50%);
-
-  border: 2px solid green;
-  border-radius: 50%;
-  background-color: black;
 }

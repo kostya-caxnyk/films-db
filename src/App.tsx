@@ -4,7 +4,7 @@ import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import { TopNavBar } from './components';
 import { FilmsPage, FilmDetailsPage } from './pages';
 
-function App() {
+const App = () => {
   return (
     <Router>
       <TopNavBar />
@@ -19,6 +19,6 @@ function App() {
       </Switch>
     </Router>
   );
-}
+};
 
 export default App;

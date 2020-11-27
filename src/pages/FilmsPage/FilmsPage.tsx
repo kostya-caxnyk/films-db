@@ -61,7 +61,7 @@ const FilmsPage: React.FC<RouteComponentProps<RouteParams>> = ({ match }) => {
       <div className={s.content}>
         <div className={s.sideBar}>side bar</div>
         <div className={s.pages}>
-          {error && <ErrorMessage />}
+          {error && <ErrorMessage error={error} />}
           {allPages.map((page, idx) => (
             <FilmsFeed items={page.items} key={idx} />
           ))}

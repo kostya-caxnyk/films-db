@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import s from './FilmCard.module.scss';
 
 import { ICardData } from '../../interfaces';
+import RateCircle from '../RateCircle/RateCircle';
 
 const formatDate = (date: string): string => {
   if (date.split('-').length !== 3) {
@@ -30,8 +31,6 @@ const FilmCard: React.FC<ICardData> = ({
 }) => {
   const history = useHistory();
 
-  const rateNumber = Math.round(vote_average * 10);
-  const rateBorderColor = rateNumber > 70 ? 'green' : rateNumber > 25 ? 'yellow' : 'red';
   const linkToValue = findLinkToValue(history.location.pathname, id);
 
   return (
@@ -44,8 +43,8 @@ const FilmCard: React.FC<ICardData> = ({
           {title || name}
         </Link>
         <span className={s.date}>{formatDate(release_date || first_air_date)}</span>
-        <span className={s.rate} style={{ borderColor: rateBorderColor }}>
-          {rateNumber}%
+        <span className={s.rateCircle}>
+          <RateCircle size="small" score={vote_average} />
         </span>
       </div>
     </div>

@@ -22,15 +22,27 @@ export interface IFilmData {
   backdrop_path: string | null;
   genres: IGenre[];
   id: number;
-  title: string;
+  title?: string;
   tagline: string | null;
   vote_average: number;
   runtime: number | null;
   status: string;
   revenue: number;
-  release_date: string;
+  release_date?: string;
   poster_path: string | null;
   budget: number;
   original_language: string;
   overview: string | null;
+
+  type?: string;
+  name: string;
+  episode_run_time?: number[];
+  first_air_date: string;
+}
+
+export interface IErrorData {
+  status_code?: number;
+  success?: boolean;
+  status_message?: string;
+  errors?: string[];
 }

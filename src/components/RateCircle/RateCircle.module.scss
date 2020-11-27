@@ -1,0 +1,48 @@
+.outerBorder {
+  display: inline-flex;
+  border: 1px solid rgb(29, 29, 29);
+  border-radius: 50%;
+
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.rateCircle {
+  border-radius: 50%;
+  border: 1px solid;
+  color: white;
+  font-weight: bold;
+  background-color: rgb(7, 7, 7);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.big {
+  width: 68px;
+  height: 68px;
+  border-width: 4px;
+
+  .rateCircle {
+    height: 60px;
+    width: 60px;
+    border-width: 4px;
+    font-size: 20px;
+  }
+}
+
+.small {
+  width: 42px;
+  height: 42px;
+  border-width: 2px;
+
+  .rateCircle {
+    height: 38px;
+    width: 38px;
+    border-width: 2px;
+    font-size: 20px;
+    font-size: 13px;
+  }
+}

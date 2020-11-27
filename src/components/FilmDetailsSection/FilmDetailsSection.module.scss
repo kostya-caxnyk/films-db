@@ -1,0 +1,87 @@
+$gray: rgb(175, 171, 171);
+.section {
+  background-position: right -200px top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.gradient {
+  background-image: linear-gradient(
+    to right,
+    rgba(11.76%, 18.43%, 23.53%, 1) 150px,
+    rgba(18.82%, 25.49%, 30.59%, 0.84) 100%
+  );
+}
+
+.inner {
+  display: flex;
+  padding: 30px 0;
+  color: #fff;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.poster {
+  width: 300px;
+  height: 450px;
+  border-radius: 10px;
+  margin-right: 40px;
+}
+
+.title {
+  margin: 0;
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 7px;
+
+  .year {
+    color: $gray;
+    font-weight: normal;
+  }
+}
+
+.info {
+  font-size: 15px;
+}
+
+.dot {
+  padding-left: 20px;
+  position: relative;
+
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 7px;
+    content: '\2022';
+  }
+}
+
+.score {
+  padding: 15px 0;
+  width: 150px;
+  margin-right: 20px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+}
+
+.description {
+  font-style: italic;
+  color: $gray;
+  font-size: 18px;
+}
+
+.overview {
+  margin: 15px 0 10px;
+  font-size: 20px;
+}
+
+.overviewText {
+  line-height: 1.35;
+}
