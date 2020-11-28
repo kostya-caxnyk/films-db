@@ -6,7 +6,7 @@ import s from './FilmPageDeatils.module.scss';
 import { IFilmData } from '../../interfaces';
 import useFetch from '../../hooks/useFetch';
 import FilmDetailsSection from '../../components/FilmDetailsSection/FilmDetailsSection';
-import { ErrorMessage } from '../../components';
+import { ErrorMessage, FilmSectionLoader } from '../../components';
 
 interface RouteParams {
   id: string;
@@ -26,7 +26,13 @@ const FilmDetailsPage: React.FC<RouteComponentProps<RouteParams>> = ({ match }) 
     <div className={s.page}>
       <div className={s.nav}>links</div>
       {error && <ErrorMessage error={error} />}
-      {response && <FilmDetailsSection {...response} />}
+      {response ? (
+        <FilmDetailsSection {...response} />
+      ) : (
+        <div className="container">
+          <FilmSectionLoader />
+        </div>
+      )}
     </div>
   );
 };
