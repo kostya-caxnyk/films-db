@@ -8,11 +8,10 @@ import { ICardData } from '../../interfaces';
 import RateCircle from '../RateCircle/RateCircle';
 
 const formatDate = (date: string): string => {
-  if (date.split('-').length !== 3) {
+  if (!date) {
     return '';
   }
-  const [year, month, day] = date.split('-');
-  return format(new Date(+year, +month - 1, +day), 'PP');
+  return format(new Date(date), 'PP');
 };
 
 const findLinkToValue = (pathname: string, id: string | number): string => {
